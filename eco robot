@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGX Eco-Robot Prototype</title>
+    <style>
+        :root { --sgx-green: #006837; --light-grey: #f4f4f4; }
+        body { font-family: Arial, sans-serif; background: #e0e0e0; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        #phone-container { width: 350px; height: 650px; background: white; border-radius: 30px; border: 8px solid #333; overflow: hidden; display: flex; flex-direction: column; position: relative; }
+        #header { background: var(--sgx-green); color: white; padding: 20px; text-align: center; font-weight: bold; }
+        #chat-box { flex: 1; padding: 15px; overflow-y: auto; background: var(--light-grey); font-size: 14px; }
+        .msg { margin-bottom: 12px; padding: 10px; border-radius: 10px; max-width: 80%; line-height: 1.4; }
+        .bot { background: white; color: #333; border: 1px solid #ddd; align-self: flex-start; }
+        .user { background: var(--sgx-green); color: white; margin-left: auto; align-self: flex-end; }
+        #controls { padding: 15px; background: white; border-top: 1px solid #ddd; }
+        .slider-label { font-size: 12px; color: #666; display: flex; justify-content: space-between; margin-bottom: 5px; }
+        input[type=range] { width: 100%; accent-color: var(--sgx-green); margin-bottom: 15px; }
+        button { width: 100%; background: var(--sgx-green); color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div id="phone-container">
+    <div id="header">SGX Sustain Invest: Eco-Robot</div>
+    <div id="chat-box" id="chatBox">
+        <div class="msg bot">Hello! I'm your <b>Eco-Robot</b>. Ready to turn your sustainability interest into action? [cite: 174, 190]</div>
+        <div class="msg bot">Adjust the slider below to tell me your ESG priority, and I'll suggest a portfolio. [cite: 172]</div>
+    </div>
+    
+    <div id="controls">
+        <div class="slider-label"><span>Focus: Financial Returns</span><span>Focus: Sustainability</span></div>
+        <input type="range" id="esgSlider" min="0" max="100" value="50">
+        <button onclick="generateAdvice()">Generate Portfolio Insight</button>
+    </div>
+</div>
+
+<script>
+    function generateAdvice() {
+        const slider = document.getElementById('esgSlider').value;
+        const chatBox = document.getElementById('chat-box');
+        
+        let userMsg = document.createElement('div');
+        userMsg.className = 'msg user';
+        userMsg.innerText = `My ESG Priority Level: ${slider}%`;
+        chatBox.appendChild(userMsg);
+
+        setTimeout(() => {
+            let botMsg = document.createElement('div');
+            botMsg.className = 'msg bot';
+            
+            if (slider < 40) {
+                botMsg.innerHTML = "<b>Conservative Growth:</b> I suggest high-yield Green Bonds. You get 12.6% avg returns with low volatility. [cite: 70, 197]";
+            } else if (slider >= 40 && slider <= 70) {
+                botMsg.innerHTML = "<b>Balanced Impact:</b> I recommend a mix of ESG ETFs and Water Purity funds. [cite: 164, 197]";
+            } else {
+                botMsg.innerHTML = "<b>High Impact:</b> We'll focus on IFRS S1/S2 compliant stocks with the lowest carbon footprints. [cite: 139, 174]";
+            }
+            
+            chatBox.appendChild(botMsg);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }, 800);
+    }
+</script>
+
+</body>
+</html>
